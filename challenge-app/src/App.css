@@ -1,4 +1,4 @@
-.fancyButton {
+.stylizedButton {
   padding: 0.5rem;
   display: block;
   margin: 0.5rem;
@@ -6,7 +6,7 @@
   border-radius: 0.25rem;
 }
 
-.fancyButton:hover {
+.stylizedButton:hover {
   background-color: darkgray
 
 }
