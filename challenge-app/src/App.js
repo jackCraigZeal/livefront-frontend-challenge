@@ -17,10 +17,10 @@ function App() {
   );
 }
 
-function StylizedButton () {
+function StylizedButton ({onClick}) {
   return (
     <>
-      <button className="stylizedButton">I am a stylized button</button>
+      <button className="stylizedButton" onClick={onClick}>I am a stylized button</button>
     </>
   );
 }
@@ -34,6 +34,9 @@ function BasicButton () {
 }
 
 function MyButton() {
+  function alertOnClick() {
+    alert("button was clicked");
+  }
   // let button;
 
   // if (stylized) {
@@ -52,7 +55,7 @@ function MyButton() {
 
   return (
     <>
-      {stylized ? <StylizedButton></StylizedButton> : <BasicButton></BasicButton>}
+      {stylized ? <StylizedButton OnClick={alertOnClick}></StylizedButton> : <BasicButton onClick={alertOnClick}></BasicButton>}
     </>
   );
 
