@@ -7,4 +7,11 @@
     - You CAN'T use an `if` statement within this, but you CAN use `.. ? .. : ..`
 - JSX uses curly braces for style: `<div style={display:block;}></div>`
 - You can set variables to html elements: `let content = <MyComponent></MyComponent>`
-- 
+- Use States in components.
+    `const [myVar, setMyVar] = useState(initialValue);`
+    `setMyVar(newValue);`
+    - State changes trigger re-renders
+    - States persist across re-renders
+    - Concurrent state updates
+    - Encapsulated variable handling
+    - Each instance of a component maintains its own state.
