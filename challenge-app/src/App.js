@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
-import Recipes from './components/Recipes';
+import Recipes from './components/Recipes/Recipes';
 
 let user = {name: "Kowalski"};
 
