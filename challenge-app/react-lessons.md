@@ -15,3 +15,6 @@
     - Concurrent state updates
     - Encapsulated variable handling
     - Each instance of a component maintains its own state.
+- React functions of the form `use___();` are called Hooks.
+    - Hooks get initialized at the start of a component.
+    

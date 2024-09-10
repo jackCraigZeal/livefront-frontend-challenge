@@ -5,17 +5,24 @@ import {useState} from 'react';
 let user = {name: "Kowalski"};
 
 function App() {
+  const [userClickCount, setUserClickCount] = useState(0);
+  
+  function incrementUserClickCount () {
+    setUserClickCount(userClickCount + 1);
+  }
+
   return (
     <div className="App">
       <h1>
         {user.name}
       </h1>
-      <MyButton buttonType="count"></MyButton>
-      <MyButton buttonType="count"></MyButton>
-      <ShoppingList></ShoppingList>
+      <CountButton onClick={incrementUserClickCount} count={userClickCount}></CountButton>
+      <CountButton onClick={incrementUserClickCount} count={userClickCount}></CountButton>
+      
     </div>
   );
 }
+
 
 function StylizedButton ({onClick}) {
   return (
@@ -25,13 +32,11 @@ function StylizedButton ({onClick}) {
   );
 }
 
-function CountButton () {
-  const [count, setCount] = useState(0);
-
+function CountButton ({count, onClick}) {
   return (
     <>
       <p>Count: {count}</p>
-      <button onClick={() => {setCount(count+1)}}>I am a count button</button>
+      <button onClick={onClick}>I am a count button</button>
     </>
   );
 
@@ -48,51 +53,6 @@ function CountButton () {
     //   </>
     // );
   // COMMENT_CODE_BLOCK_END
-}
-
-function MyButton({buttonType}) {
-  function alertOnClick() {
-    alert("button was clicked");
-  }
-
-  if (buttonType == "stylized") {
-    return (
-      <StylizedButton onClick={alertOnClick}></StylizedButton>
-    );
-  }
-  else if (buttonType == "count") {
-    return (
-      <CountButton></CountButton>
-    );
-  }
-
-  return (
-    <></>
-  )
-
-}
-
-const products = [
-  { title: 'Cabbage', isFruit: false, id: 1 },
-  { title: 'Garlic', isFruit: false, id: 2 },
-  { title: 'Apple', isFruit: true, id: 3 },
-];
-
-function ShoppingList() {
-  const listItems = products.map(product =>
-    <li
-      key={product.id}
-      style={{
-        color: product.isFruit ? 'magenta' : 'darkgreen'
-      }}
-    >
-      {product.title}
-    </li>
-  );
-
-  return (
-    <ul>{listItems}</ul>
-  );
 }
 
 export default App;
