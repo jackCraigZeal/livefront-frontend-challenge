@@ -40,12 +40,23 @@ const Recipes: React.FC = () => {
 
   const [recipes, setRecipes] = useState([{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","image":"https://img.spoonacular.com/recipes/1697541-312x231.jpg","imageType":"jpg"},{"id":1095886,"title":"Simple Parmesan Chili Pasta","image":"https://img.spoonacular.com/recipes/1095886-312x231.jpg","imageType":"jpg"},{"id":1165787,"title":"Instant Pot Chili Mac","image":"https://img.spoonacular.com/recipes/1165787-312x231.jpg","imageType":"jpg"},{"id":1050444,"title":"How to Make the Perfect Instant Pot Chicken","image":"https://img.spoonacular.com/recipes/1050444-312x231.jpg","imageType":"jpg"},{"id":1063645,"title":"The Secret to Easy Skillet Filet Mignon Steak Tacos","image":"https://img.spoonacular.com/recipes/1063645-312x231.jpg","imageType":"jpg"}]);
   
+  const generateRecipes = (): void => {
+      alert('Generate Recipes');
+  }
+
   return (
-    <div className="RecipeContainer">
-      {recipes.map(recipe => (
-        <RecipeCard title={recipe.title}></RecipeCard>
-      ))}
-    </div>
+    <>
+      <div>
+        <button className="GenerateRecipesButton" onClick={generateRecipes}>Generate Recipes</button>
+      </div>
+      
+      <div className="RecipeContainer">
+        {recipes.map(recipe => (
+          <RecipeCard title={recipe.title} imageUrl={recipe.image}></RecipeCard>
+        ))}
+      </div>
+    </>
+    
   );
 };
 

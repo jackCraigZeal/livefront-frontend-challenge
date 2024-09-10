@@ -3,16 +3,29 @@ import './RecipeCard.css';
 
 interface RecipeCardProps {
     title: string;
+    imageUrl: string;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({title}) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({title, imageUrl}) => {
     const [expanded, setExpanded] = useState(false);
-    
-    
+
+    const handleClick = (): void => {
+        setExpanded(!expanded);
+    }
+
     return (
         <div className="RecipeCard">
-            <span>{title}</span>
-            <button></button>
+            <div className="RecipeCardHeader">
+                <span>{title}</span>
+                <button onClick={handleClick}></button>
+            </div>
+            
+            {expanded && 
+                <>
+                    <hr></hr>
+                    <img src={imageUrl}></img>
+                </>   
+            }
         </div>
     )
 }

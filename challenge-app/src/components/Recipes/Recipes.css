@@ -1,3 +1,8 @@
+.GenerateRecipesButton {
+    display: flex;
+    margin: 20px auto;
+    padding: 8px;
+}
+
 .RecipeContainer {
-    overflow:hidden;
 }

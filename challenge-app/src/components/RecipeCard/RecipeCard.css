@@ -1,8 +1,4 @@
 .RecipeCard {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     border: 1px solid lightgray;
     padding: 20px;
     margin: 20px;
@@ -12,6 +8,19 @@
     border-radius: 4px;
 }
 
-.RecipeCard > button {
+.RecipeCard > .RecipeCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.RecipeCard > .RecipeCardHeader > button {
     height: 16px;
+}
+
+.RecipeCard hr {
+    border: none;
+    height: 2px;
+    background-color: lightgrey;
+    margin: 20px auto;
 }
