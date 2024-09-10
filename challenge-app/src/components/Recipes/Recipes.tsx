@@ -1,8 +1,9 @@
 // src/components/Posts.js
 import React, { useEffect, useState } from 'react';
+import RecipeCard from '../RecipeCard/RecipeCard';
 import './Recipes.css';
 
-function Recipes(){
+const Recipes: React.FC = () => {
 
 //  CODE BLOCK
 //  For api calls, commented out so that we don't overuse the api calls allowed. 
@@ -42,10 +43,7 @@ function Recipes(){
   return (
     <div className="RecipeContainer">
       {recipes.map(recipe => (
-        <div className="RecipeCard">
-            <span>{recipe.title}</span>
-            <button></button>
-        </div>
+        <RecipeCard title={recipe.title}></RecipeCard>
       ))}
     </div>
   );
