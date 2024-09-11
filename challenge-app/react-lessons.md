@@ -17,4 +17,5 @@
     - Each instance of a component maintains its own state.
 - React functions of the form `use___();` are called Hooks.
     - Hooks get initialized at the start of a component.
-    
+    - useEffect hook runs when a component is mounted, and when any of its dependencies change.
+- The shorthand `.map(input => output)` is ES6-exclusive.
