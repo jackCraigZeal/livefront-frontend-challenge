@@ -38,10 +38,37 @@ const Recipes: React.FC = () => {
 //   if (error) return <p>Error: {error}</p>;
 // ```
 
+  const recipeCount: number = 1;
   const [recipes, setRecipes] = useState([{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","image":"https://img.spoonacular.com/recipes/1697541-312x231.jpg","imageType":"jpg"},{"id":1095886,"title":"Simple Parmesan Chili Pasta","image":"https://img.spoonacular.com/recipes/1095886-312x231.jpg","imageType":"jpg"},{"id":1165787,"title":"Instant Pot Chili Mac","image":"https://img.spoonacular.com/recipes/1165787-312x231.jpg","imageType":"jpg"},{"id":1050444,"title":"How to Make the Perfect Instant Pot Chicken","image":"https://img.spoonacular.com/recipes/1050444-312x231.jpg","imageType":"jpg"},{"id":1063645,"title":"The Secret to Easy Skillet Filet Mignon Steak Tacos","image":"https://img.spoonacular.com/recipes/1063645-312x231.jpg","imageType":"jpg"}]);
   
+  
+
+  async function getRandomRecipes(apiKey: string) {
+    try {
+      // const recipesResponse = await fetch('https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey + '&maxReadyTime=20&sort=random&number=' + recipeCount.toString() + '&type=main%20dish');
+      // const recipesData = await recipesResponse.json();
+      const recipesData:any = {results:[{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","image":"https://img.spoonacular.com/recipes/1697541-312x231.jpg","imageType":"jpg"}]};
+      const recipeDetailsPromises = recipesData.results.map((recipeSummary: any) => {
+        // return fetch('https://api.spoonacular.com/recipes/' + recipeSummary.id + '/information?apiKey=' + apiKey);
+        return fetch('https://dummyjson.com/test');
+      });
+
+      const recipeDetails = await Promise.all(recipeDetailsPromises);
+      const recipeDetailsData = await Promise.all(recipeDetails.map((recipeDetail) => {return recipeDetail.json()}));
+      console.log(recipeDetailsData);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const generateRecipes = (): void => {
-      alert('Generate Recipes');
+    const apiKey = sessionStorage.getItem("LivefrontChallengeQuickRecipes_SpoonacularApiKey");
+    if(apiKey !== null) {
+      getRandomRecipes(apiKey);
+    } else {
+      console.log('ERROR: no api key found');
+    }
   }
 
   return (
