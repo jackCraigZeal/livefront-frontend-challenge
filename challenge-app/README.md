@@ -1,6 +1,9 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is an application for generating random recipe ideas. Click the generate recipes button to get a new set of 5 recipes, click the squares to expand the recipe titles.
+
+To set an api key, run `sessionStorage.setItem('LivefrontChallengeQuickRecipes_SpoonacularApiKey', API_KEY) in your browser console.
+
 
 ## Available Scripts
 
@@ -68,3 +71,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+

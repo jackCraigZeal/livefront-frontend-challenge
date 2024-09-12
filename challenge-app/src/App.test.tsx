@@ -1,8 +1,13 @@
+// src/App.test.tsx
+import React from 'react';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect'; // for extra matchers like .toBeInTheDocument
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the App component', () => {
+  // Render the App component
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const headerElement = screen.getByText(/hello, world!/i);
+  expect(headerElement).toBeInTheDocument();
+
 });

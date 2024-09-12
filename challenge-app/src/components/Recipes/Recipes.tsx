@@ -116,8 +116,8 @@ const Recipes: React.FC = () => {
       </div>
       
       <div className="RecipeContainer">
-        {recipes.map(recipe => (
-          <RecipeCard title={recipe.title} imageUrl={recipe.imageUrl}></RecipeCard>
+        {recipes.map((recipe, index) => (
+          <RecipeCard title={recipe.title} imageUrl={recipe.imageUrl} summary={recipeDetails[index].summary ?? ''}></RecipeCard>
         ))}
       </div>
     </>
