@@ -23,7 +23,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({title, imageUrl}) => {
             {expanded && 
                 <>
                     <hr></hr>
-                    <img src={imageUrl}></img>
+                    <img className="RecipeImage" src={imageUrl}></img>
                 </>   
             }
         </div>

@@ -4,7 +4,6 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 import './Recipes.css';
 
 const Recipes: React.FC = () => {
-
 //  CODE BLOCK
 //  For api calls, commented out so that we don't overuse the api calls allowed. 
 // ```
@@ -37,39 +36,78 @@ const Recipes: React.FC = () => {
 //   if (loading) return <p>Loading...</p>;
 //   if (error) return <p>Error: {error}</p>;
 // ```
+  const recipeCount: number = 5;
+  const [recipes, setRecipes] = useState<RecipeSummary[]>([{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","imageUrl":"https://img.spoonacular.com/recipes/1697541-312x231.jpg"},{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","imageUrl":"https://img.spoonacular.com/recipes/1697541-312x231.jpg"}, {"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","imageUrl":"https://img.spoonacular.com/recipes/1697541-312x231.jpg"}, {"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","imageUrl":"https://img.spoonacular.com/recipes/1697541-312x231.jpg"}, {"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","imageUrl":"https://img.spoonacular.com/recipes/1697541-312x231.jpg"}]);
+  // const [recipes, setRecipes] = useState([]);
+  const [recipeDetails, setRecipeDetails] = useState<RecipeDetails[]>([{summary: ""}]);
 
-  const recipeCount: number = 1;
-  const [recipes, setRecipes] = useState([{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","image":"https://img.spoonacular.com/recipes/1697541-312x231.jpg","imageType":"jpg"},{"id":1095886,"title":"Simple Parmesan Chili Pasta","image":"https://img.spoonacular.com/recipes/1095886-312x231.jpg","imageType":"jpg"},{"id":1165787,"title":"Instant Pot Chili Mac","image":"https://img.spoonacular.com/recipes/1165787-312x231.jpg","imageType":"jpg"},{"id":1050444,"title":"How to Make the Perfect Instant Pot Chicken","image":"https://img.spoonacular.com/recipes/1050444-312x231.jpg","imageType":"jpg"},{"id":1063645,"title":"The Secret to Easy Skillet Filet Mignon Steak Tacos","image":"https://img.spoonacular.com/recipes/1063645-312x231.jpg","imageType":"jpg"}]);
-  
-  
+  interface RecipeSummary {
+    id: number;
+    title: string;
+    imageUrl: string;
+  }
 
-  async function getRandomRecipes(apiKey: string) {
+  interface RecipeDetails {
+    summary: string;
+  }
+
+  async function getAndSaveRandomRecipes(apiKey: string) {
     try {
-      // const recipesResponse = await fetch('https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey + '&maxReadyTime=20&sort=random&number=' + recipeCount.toString() + '&type=main%20dish');
-      // const recipesData = await recipesResponse.json();
-      const recipesData:any = {results:[{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","image":"https://img.spoonacular.com/recipes/1697541-312x231.jpg","imageType":"jpg"}]};
+      const recipesResponse = await fetch('https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey + '&maxReadyTime=20&sort=random&number=' + recipeCount.toString() + '&type=main%20dish');
+      const recipesData = await recipesResponse.json();
+      // const recipesData:any = {results:[{"id":1697541,"title":"Pasta With Feta Cheese And Asparagus","image":"https://img.spoonacular.com/recipes/1697541-312x231.jpg","imageType":"jpg"}]};
       const recipeDetailsPromises = recipesData.results.map((recipeSummary: any) => {
-        // return fetch('https://api.spoonacular.com/recipes/' + recipeSummary.id + '/information?apiKey=' + apiKey);
-        return fetch('https://dummyjson.com/test');
+        return fetch('https://api.spoonacular.com/recipes/' + recipeSummary.id + '/information?apiKey=' + apiKey);
+        // return fetch('https://dummyjson.com/test');
       });
 
       const recipeDetails = await Promise.all(recipeDetailsPromises);
       const recipeDetailsData = await Promise.all(recipeDetails.map((recipeDetail) => {return recipeDetail.json()}));
-      console.log(recipeDetailsData);
-
+      sessionStorage.setItem('LivefrontChallengeQuickRecipes_Recipes', JSON.stringify(recipesData.results));
+      sessionStorage.setItem('LivefrontChallengeQuickRecipes_RecipeDetails', JSON.stringify(recipeDetailsData));
+      setRecipes(recipesData.results.map((recipe: any) => {return {
+        id: recipe.id,
+        title: recipe.title,
+        imageUrl: recipe.image
+      }}));
     } catch (error) {
       console.log(error);
     }
   }
 
   const generateRecipes = (): void => {
-    const apiKey = sessionStorage.getItem("LivefrontChallengeQuickRecipes_SpoonacularApiKey");
+    const apiKey = sessionStorage.getItem('LivefrontChallengeQuickRecipes_SpoonacularApiKey');
     if(apiKey !== null) {
-      getRandomRecipes(apiKey);
+      getAndSaveRandomRecipes(apiKey);
     } else {
-      console.log('ERROR: no api key found');
+      alert('ERROR: no api key found');
     }
   }
+
+  const loadRecipes = (): void => {
+    let storedRecipes = sessionStorage.getItem('LivefrontChallengeQuickRecipes_Recipes');
+    let storedRecipeDetails = sessionStorage.getItem('LivefrontChallengeQuickRecipes_RecipeDetails');
+    if(storedRecipes == null || storedRecipeDetails == null) {
+      generateRecipes();
+    }
+
+    if(storedRecipes !== null) {
+      setRecipes(JSON.parse(storedRecipes).map((recipe: any) => {return {
+        id: recipe.id,
+        title: recipe.title,
+        imageUrl: recipe.image
+      }}));
+    }
+    if(storedRecipeDetails !== null) {
+      setRecipeDetails(JSON.parse(storedRecipeDetails).map((recipeDetails: any) =>{return {
+        summary: recipeDetails.summary
+      }}));
+    }
+  }
+
+  useEffect(() => {
+    loadRecipes();
+  }, []); 
 
   return (
     <>
@@ -79,7 +117,7 @@ const Recipes: React.FC = () => {
       
       <div className="RecipeContainer">
         {recipes.map(recipe => (
-          <RecipeCard title={recipe.title} imageUrl={recipe.image}></RecipeCard>
+          <RecipeCard title={recipe.title} imageUrl={recipe.imageUrl}></RecipeCard>
         ))}
       </div>
     </>

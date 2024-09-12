@@ -24,3 +24,9 @@
     background-color: lightgrey;
     margin: 20px auto;
 }
+
+.RecipeCard .RecipeImage {
+    width: 50%;
+    margin: 0 25%;
+    border-radius: 8px;
+}
